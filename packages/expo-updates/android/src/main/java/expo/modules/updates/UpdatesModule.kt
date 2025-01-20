@@ -1,6 +1,7 @@
 package expo.modules.updates
 
 import android.content.Context
+import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import expo.modules.kotlin.Promise
@@ -209,6 +210,13 @@ class UpdatesModule : Module(), IUpdatesEventManagerObserver {
             promise.resolve(null)
           }
         }
+      }
+    }
+
+    Function("setUrlOverride") { url: String ->
+      val sharedPreferences = context.getSharedPreferences("updatesOverridePrefs", Context.MODE_PRIVATE)
+      with (sharedPreferences.edit()) {
+        putString("updatesOverride", url)
       }
     }
   }
